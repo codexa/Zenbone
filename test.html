@@ -14,13 +14,12 @@
       </select>
       <input type="submit" value="Send!" />
     </form>
+    <br /><div id="results" style="color: blue;"></div>
     <script type="text/javascript">
       // This is a test script
       function sendTest() {
-        var message-address = document.getElementById('message-address').value;
-        var message-text = document.getElementById('message-text').value;
-        var message-type = document.getElementById('message-type').selectedIndex.value;
-        chatterbox.send(message-text, message-address, '', message-type);
+        chatterbox.send(document.getElementById('message-text').value, document.getElementById('message-address').value, '', document.getElementById('message-type').selectedIndex.value);
+        document.getElementById('results').innerHTML = chatterbox.results();
       }
     </script>
     <script type="text/javascript" src="chatterbox.js"></script>
