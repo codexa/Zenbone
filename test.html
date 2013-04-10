@@ -5,6 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
+    <form action="javascript:sendTest()">
+      <input type="text" id="message-address" placeholder="Address (email or phone)" />
+      <textarea id="message-text" placeholder="The message..."></textarea>
+      <select id="message-type">
+        <option value="email">Email</option>
+        <option value="text">Text</option>
+      </select>
+      <input type="submit" value="Send!" />
+    </form>
+    <script type="text/javascript">
+      // This is a test script
+      function sendTest() {
+        var message-address = document.getElementById('message-address').value;
+        var message-text = document.getElementById('message-text').value;
+        var message-type = document.getElementById('message-type').selectedIndex.value;
+        chatterbox.send(message-text, message-address, '', message-type);
+      }
+    </script>
     <script type="text/javascript" src="chatterbox.js"></script>
   </body>
 </html>
