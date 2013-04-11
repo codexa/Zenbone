@@ -77,6 +77,9 @@ chatterbox.makeCall =  function (content, address) {
 };
 
 chatterbox.results = function(format) {
+  if (results == '' | results == null | results == undefined) {
+    return 'No results yet';
+  }
   results.toString();
   if (format == 'html') {
     results = results.replace(/,/, '<br />');
