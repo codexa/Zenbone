@@ -6,12 +6,10 @@ var results = new Array();
 chatterbox.send = function (content, address, type, sendMethod) {
   results = new Array();
   if (address == '' | address == null | address == undefined) {
-    results.push('error: address not specified.');
-    return 'error: address not specified.';
+    return chatterboxResult('Address not specified.', 'error');
   }
   if (content == '' | content == null | content == undefined) {
-    results.push('error: nothing to send.');
-    return 'error: nothing to send.';
+    return chatterboxResult('Nothing to send.', 'error');
   }
   if (type == '' | type == null | type == undefined) {
     type = chatterbox.checkType(address);
@@ -26,22 +24,21 @@ chatterbox.send = function (content, address, type, sendMethod) {
       chatterbox.makeCall(content, address);
     }
   }
-  results.push('success: The send function completed.  Sent ' + sendMethod + ' message.');
+  chatterboxResult('The send function completed.', 'success');
+  chatterboxResult('Sent ' + sendMethod + ' message.', 'success');
 };
 
 chatterbox.checkType = function (address) {
   // Some code to detect the type of message we want to send.  Will return 'mobile' if telephone number, 'email' if email.
-  results.push('error: Please teach me how to check an address\'s type.');
+  return chatterboxResult('Please teach me how to check an address\'s type.', 'error');
 };
 
 chatterbox.sendEmail =  function (content, address) {
   if (address == '' | address == null | address == undefined) {
-    results.push('error: address not specified.');
-    return 'error: address not specified.';
+    return chatterboxResult('Address not specified.', 'error');
   }
   if (content == '' | content == null | content == undefined) {
-    results.push('error: nothing to send.');
-    return 'error: nothing to send.';
+    return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to send email.
   results.push('error: Please teach me how to send email.');
@@ -50,12 +47,10 @@ chatterbox.sendEmail =  function (content, address) {
 
 chatterbox.sendText =  function (content, address) {
   if (address == '' | address == null | address == undefined) {
-    results.push('error: address not specified.');
-    return 'error: address not specified.';
+    return chatterboxResult('Address not specified.', 'error');
   }
   if (content == '' | content == null | content == undefined) {
-    results.push('error: nothing to send.');
-    return 'error: nothing to send.';
+    return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to send a text.
   results.push('error: Please teach me how to send texts.');
@@ -64,12 +59,10 @@ chatterbox.sendText =  function (content, address) {
 
 chatterbox.makeCall =  function (content, address) {
   if (address == '' | address == null | address == undefined) {
-    results.push('error: address not specified.');
-    return 'error: address not specified.';
+    return chatterboxResult('Address not specified.', 'error');
   }
   if (content == '' | content == null | content == undefined) {
-    results.push('error: nothing to send.');
-    return 'error: nothing to send.';
+    return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to make a call.
   results.push('error: Please teach me how to call people.');
@@ -77,16 +70,24 @@ chatterbox.makeCall =  function (content, address) {
 };
 
 chatterbox.results = function(format) {
+  var resultString = 'No results yet!';
   if (results == '' | results == null | results == undefined) {
-    return 'No results yet';
+    return resultString;
   }
-  var resultString;
   if (format == 'html') {
-    resultString = resultString.replace(/,/, '<br />');
+    resultString = results.toString().replace(/{success}/g, '<div style="background: #50A251;">').replace(/{error}/g, '<div style="background: #a35151;">').replace(/{end}/g, '</div>').replace(/,/g, '');
   } else if (format == 'array') {
     resultString = results;
   } else {
-    resultString = results.toString();
+    resultString = results.toString().replace(/,/g, '');
   }
   return resultString;
 };
+
+function chatterboxResult(text, type) {
+  if (type != null && type != undefined && type != '' && type != 0) {
+    text = ('{'+type+'}'+text+'{end}');
+  }
+  results.push(text);  
+  return text;
+}
