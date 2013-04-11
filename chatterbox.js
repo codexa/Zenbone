@@ -28,11 +28,11 @@ chatterbox.send = function (content, address, type, sendMethod) {
   }
   results.push('Success: The send function completed.');
   return 'Success: The send function completed.';
-}
+};
 
 chatterbox.checkType = function (address) {
   // Some code to detect the type of message we want to send.  Will return 'mobile' if telephone number, 'email' if email.
-}
+};
 
 chatterbox.sendEmail =  function (content, address) {
   if (address === '' | address == null | address == undefined) {
@@ -46,7 +46,7 @@ chatterbox.sendEmail =  function (content, address) {
   // Some code to send email.
   results.push('error: Please teach me how to send email.');
   return 'error: Please teach me how to send email.';
-}
+};
 
 chatterbox.sendText =  function (content, address) {
   if (address === '' | address == null | address == undefined) {
@@ -60,7 +60,7 @@ chatterbox.sendText =  function (content, address) {
   // Some code to send a text.
   results.push('error: Please teach me how to send texts.');
   return 'error: Please teach me how to send texts.';
-}
+};
 
 chatterbox.makeCall =  function (content, address) {
   if (address === '' | address == null | address == undefined) {
@@ -74,8 +74,8 @@ chatterbox.makeCall =  function (content, address) {
   // Some code to make a call.
   results.push('error: Please teach me how to call people.');
   return 'error: Please teach me how to call people.';
-}
+};
 
 chatterbox.results = function() {
   return results.toString();
-}
+};
