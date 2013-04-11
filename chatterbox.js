@@ -76,6 +76,10 @@ chatterbox.makeCall =  function (content, address) {
   return 'error: Please teach me how to call people.';
 };
 
-chatterbox.results = function() {
-  return results.toString().replace(/,/, '<br />');
+chatterbox.results = function(format) {
+  results.toString();
+  if (format == 'html') {
+    results = results.replace(/,/, '<br />');
+  }
+  return results;
 };
