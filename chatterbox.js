@@ -41,8 +41,7 @@ chatterbox.sendEmail =  function (content, address) {
     return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to send email.
-  results.push('error: Please teach me how to send email.');
-  return 'error: Please teach me how to send email.';
+  return chatterboxResult('Please teach me how to send email.', 'error');
 };
 
 chatterbox.sendText =  function (content, address) {
@@ -53,8 +52,7 @@ chatterbox.sendText =  function (content, address) {
     return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to send a text.
-  results.push('error: Please teach me how to send texts.');
-  return 'error: Please teach me how to send texts.';
+  return chatterboxResult('Please teach me how to send texts.', 'error');
 };
 
 chatterbox.makeCall =  function (content, address) {
@@ -66,7 +64,7 @@ chatterbox.makeCall =  function (content, address) {
   }
   // Some code to make a call.
   results.push('error: Please teach me how to call people.');
-  return 'error: Please teach me how to call people.';
+  return chatterboxResult('Please teach me how to call people.', 'error');
 };
 
 chatterbox.results = function(format) {
@@ -75,7 +73,7 @@ chatterbox.results = function(format) {
     return resultString;
   }
   if (format == 'html') {
-    resultString = results.toString().replace(/{success}/g, '<div style="background: #50A251;">').replace(/{error}/g, '<div style="background: #a35151;">').replace(/{end}/g, '</div>').replace(/,/g, '');
+    resultString = results.toString().replace(/{success}/g, '<div style="background: #50A251;">').replace(/{error}/g, '<div style="background: #a35151;">').replace(/{result}/g, '<div>').replace(/{end}/g, '</div>').replace(/,/g, '');
   } else if (format == 'array') {
     resultString = results;
   } else {
@@ -85,9 +83,10 @@ chatterbox.results = function(format) {
 };
 
 function chatterboxResult(text, type) {
-  if (type != null && type != undefined && type != '' && type != 0) {
-    text = ('{'+type+'}'+text+'{end}');
+  if (type != 'error' && type != 'success') {
+    type = 'result';
   }
+  text = ('{'+type+'}'+text+'{end}');
   results.push(text);  
   return text;
 }
