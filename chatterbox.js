@@ -26,7 +26,7 @@ chatterbox.send = function (content, address, type, sendMethod) {
       chatterbox.makeCall(content, address);
     }
   }
-  results.push('success: The send function completed.  Sent message of type ' + type + '.');
+  results.push('success: The send function completed.  Sent ' + sendMethod + ' message.');
 };
 
 chatterbox.checkType = function (address) {
