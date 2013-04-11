@@ -5,22 +5,22 @@ var results = new Array();
 
 chatterbox.send = function (content, address, type, sendMethod) {
   results = new Array();
-  if (address === '' | address == null | address == undefined) {
+  if (address == '' | address == null | address == undefined) {
     results.push('error: address not specified.');
     return 'error: address not specified.';
   }
-  if (content === '' | content == null | content == undefined) {
+  if (content == '' | content == null | content == undefined) {
     results.push('error: nothing to send.');
     return 'error: nothing to send.';
   }
-  if (type === '' | type == null | type == undefined) {
+  if (type == '' | type == null | type == undefined) {
     type = chatterbox.checkType(address);
   }
   // Delegates based on type
-  if (type === 'email') {
+  if (type == 'email') {
     chatterbox.sendEmail(content, address);
-  } else if (type === 'mobile') {
-    if (sendMethod === 'text') {
+  } else if (type == 'mobile') {
+    if (sendMethod == 'text') {
       chatterbox.sendText(content, address);
     } else {
       chatterbox.makeCall(content, address);
@@ -35,11 +35,11 @@ chatterbox.checkType = function (address) {
 };
 
 chatterbox.sendEmail =  function (content, address) {
-  if (address === '' | address == null | address == undefined) {
+  if (address == '' | address == null | address == undefined) {
     results.push('error: address not specified.');
     return 'error: address not specified.';
   }
-  if (content === '' | content == null | content == undefined) {
+  if (content == '' | content == null | content == undefined) {
     results.push('error: nothing to send.');
     return 'error: nothing to send.';
   }
@@ -49,11 +49,11 @@ chatterbox.sendEmail =  function (content, address) {
 };
 
 chatterbox.sendText =  function (content, address) {
-  if (address === '' | address == null | address == undefined) {
+  if (address == '' | address == null | address == undefined) {
     results.push('error: address not specified.');
     return 'error: address not specified.';
   }
-  if (content === '' | content == null | content == undefined) {
+  if (content == '' | content == null | content == undefined) {
     results.push('error: nothing to send.');
     return 'error: nothing to send.';
   }
@@ -63,11 +63,11 @@ chatterbox.sendText =  function (content, address) {
 };
 
 chatterbox.makeCall =  function (content, address) {
-  if (address === '' | address == null | address == undefined) {
+  if (address == '' | address == null | address == undefined) {
     results.push('error: address not specified.');
     return 'error: address not specified.';
   }
-  if (content === '' | content == null | content == undefined) {
+  if (content == '' | content == null | content == undefined) {
     results.push('error: nothing to send.');
     return 'error: nothing to send.';
   }
