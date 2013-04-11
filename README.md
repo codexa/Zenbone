@@ -14,7 +14,7 @@ You can send a message by calling <code>chatterbox.send(a, b, c);</code>.
 
 ##Getting the results of an operation
 You can get an operation's results by doing <code>foo = chatterbox.results(a);</code>.
-<br /><b>a</b> tells chatterbox how to format the result list.  Current values are <b>plain</b> and <b>html</b>.
+<br /><b>a</b> tells chatterbox how to format the result list.  Current values are <b>plain</b>, <b>array</b> and <b>html</b>.
 
 <b>Note:</b> If you do not specify a format, chatterbox will return results in a Plain Text format.
 

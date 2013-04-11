@@ -80,9 +80,12 @@ chatterbox.results = function(format) {
   if (results == '' | results == null | results == undefined) {
     return 'No results yet';
   }
-  results.toString();
   if (format == 'html') {
-    results = results.replace(/,/, '<br />');
+    resultString = resultString.replace(/,/, '<br />');
+  } else if (format == 'array') {
+    resultString = results;
+  } else {
+    resultString = results.toString();
   }
-  return results;
+  return resultString;
 };
