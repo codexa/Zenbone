@@ -80,6 +80,7 @@ chatterbox.results = function(format) {
   if (results == '' | results == null | results == undefined) {
     return 'No results yet';
   }
+  var resultString;
   if (format == 'html') {
     resultString = resultString.replace(/,/, '<br />');
   } else if (format == 'array') {
