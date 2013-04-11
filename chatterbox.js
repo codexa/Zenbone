@@ -26,12 +26,12 @@ chatterbox.send = function (content, address, type, sendMethod) {
       chatterbox.makeCall(content, address);
     }
   }
-  results.push('Success: The send function completed.');
-  return 'Success: The send function completed.';
+  results.push('success: The send function completed.  Sent message of type ' + type + '.');
 };
 
 chatterbox.checkType = function (address) {
   // Some code to detect the type of message we want to send.  Will return 'mobile' if telephone number, 'email' if email.
+  results.push('error: Please teach me how to check an address\'s type.');
 };
 
 chatterbox.sendEmail =  function (content, address) {
@@ -77,5 +77,5 @@ chatterbox.makeCall =  function (content, address) {
 };
 
 chatterbox.results = function() {
-  return results.toString();
+  return results.toString().replace(/,/, '<br />');
 };
