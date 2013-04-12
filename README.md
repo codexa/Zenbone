@@ -20,5 +20,5 @@ You can get an operation's results by doing <code>foo = chatterbox.results(a);</
 
 
 ##Checking the type of an address
-You can find out what kind of address a user has entered by doing <code>foo = chatterbox.checkType()</code>.
+You can find out what kind of address a user has entered by doing <code>foo = chatterbox.checkType();</code>.
 <br>Chatterbox will return the string <b>'mobile'</b> if it is a telephone number or <b>'email'</b> if it is an email.
