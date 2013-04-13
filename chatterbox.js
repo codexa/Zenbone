@@ -5,13 +5,13 @@ var results = new Array();
 
 chatterbox.send = function (content, address, type, sendMethod) {
   results = new Array();
-  if (address == '' | address == null | address == undefined) {
+  if (address == '' || address == null || address == undefined) {
     return chatterboxResult('Address not specified.', 'error');
   }
-  if (content == '' | content == null | content == undefined) {
+  if (content == '' || content == null || content == undefined) {
     return chatterboxResult('Nothing to send.', 'error');
   }
-  if (type == '' | type == null | type == undefined) {
+  if (type == '' || type == null || type == undefined) {
     type = chatterbox.checkType(address);
   }
   // Delegates based on type
@@ -34,10 +34,10 @@ chatterbox.checkType = function (address) {
 };
 
 chatterbox.sendEmail =  function (content, address) {
-  if (address == '' | address == null | address == undefined) {
+  if (address == '' || address == null || address == undefined) {
     return chatterboxResult('Address not specified.', 'error');
   }
-  if (content == '' | content == null | content == undefined) {
+  if (content == '' || content == null || content == undefined) {
     return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to send email.
@@ -45,10 +45,10 @@ chatterbox.sendEmail =  function (content, address) {
 };
 
 chatterbox.sendText =  function (content, address) {
-  if (address == '' | address == null | address == undefined) {
+  if (address == '' || address == null || address == undefined) {
     return chatterboxResult('Address not specified.', 'error');
   }
-  if (content == '' | content == null | content == undefined) {
+  if (content == '' || content == null || content == undefined) {
     return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to send a text.
@@ -56,10 +56,10 @@ chatterbox.sendText =  function (content, address) {
 };
 
 chatterbox.makeCall =  function (content, address) {
-  if (address == '' | address == null | address == undefined) {
+  if (address == '' || address == null || address == undefined) {
     return chatterboxResult('Address not specified.', 'error');
   }
-  if (content == '' | content == null | content == undefined) {
+  if (content == '' || content == null || content == undefined) {
     return chatterboxResult('Nothing to send.', 'error');
   }
   // Some code to make a call.
@@ -69,7 +69,7 @@ chatterbox.makeCall =  function (content, address) {
 
 chatterbox.results = function(format) {
   var resultString = 'No results yet!';
-  if (results == '' | results == null | results == undefined) {
+  if (results == '' || results == null || results == undefined) {
     return resultString;
   }
   if (format == 'html') {
