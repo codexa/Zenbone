@@ -20,16 +20,16 @@ var chatterbox = (function () {
       return chatterboxResult('Nothing to send.', 'error');
     }
     if (type == '' || type == null || type == undefined) {
-      type = chatterbox.checkType(address);
+      type = this.checkType(address);
     }
     // Delegates based on type
     if (type == 'email') {
-      chatterbox.sendEmail(content, address);
+      this.sendEmail(content, address);
     } else if (type == 'mobile') {
       if (sendMethod == 'text') {
-        chatterbox.sendText(content, address);
+        this.sendText(content, address);
       } else {
-        chatterbox.makeCall(content, address);
+        this.makeCall(content, address);
       }
     }
     chatterboxResult('The send function completed.', 'success');
