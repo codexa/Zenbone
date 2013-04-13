@@ -10,8 +10,9 @@ var chatterbox = (function () {
     results.push(text);
     return text;
   }
-  return {
-  send: function (content, address, type, sendMethod) {
+  var chatterbox = new Object();
+  
+  chatterbox.send = function (content, address, type, sendMethod) {
     results = new Array();
     if (address == '' || address == null || address == undefined) {
       return chatterboxResult('Address not specified.', 'error');
@@ -34,12 +35,14 @@ var chatterbox = (function () {
     }
     chatterboxResult('The send function completed.', 'success');
     chatterboxResult('Sent ' + sendMethod + ' message.', 'success');
-  },
-  checkType: function (address) {
+  };
+  
+  chatterbox.checkType = function (address) {
     // Some code to detect the type of message we want to send.  Will return 'mobile' if telephone number, 'email' if email.
     return chatterboxResult('Please teach me how to check an address\'s type.', 'error');
-  },
-  sendEmail: function (content, address) {
+  };
+  
+  chatterbox.sendEmail = function (content, address) {
     if (address == '' || address == null || address == undefined) {
       return chatterboxResult('Address not specified.', 'error');
     }
@@ -48,8 +51,9 @@ var chatterbox = (function () {
     }
     // Some code to send email.
     return chatterboxResult('Please teach me how to send email.', 'error');
-  },
-  sendText: function (content, address) {
+  };
+  
+  chatterbox.sendText = function (content, address) {
     if (address == '' || address == null || address == undefined) {
       return chatterboxResult('Address not specified.', 'error');
     }
@@ -58,8 +62,9 @@ var chatterbox = (function () {
     }
     // Some code to send a text.
     return chatterboxResult('Please teach me how to send texts.', 'error');
-  },
-  makeCall: function (content, address) {
+  };
+  
+  chatterbox.makeCall = function (content, address) {
     if (address == '' || address == null || address == undefined) {
       return chatterboxResult('Address not specified.', 'error');
     }
@@ -69,8 +74,9 @@ var chatterbox = (function () {
     // Some code to make a call.
     results.push('error: Please teach me how to call people.');
     return chatterboxResult('Please teach me how to call people.', 'error');
-  },
-  results: function(format) {
+  };
+  
+  chatterbox.results = function(format) {
     var resultString = 'No results yet!';
     if (results == '' || results == null || results == undefined) {
       return resultString;
@@ -83,5 +89,7 @@ var chatterbox = (function () {
       resultString = results.toString().replace(/,/g, '');
     }
     return resultString;
-  }};
+  };
+  
+  return chatterbox;
 })();
