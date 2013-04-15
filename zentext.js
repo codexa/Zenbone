@@ -1,8 +1,10 @@
-// This script is by the Chatterbox contributors.
+// This script is by the Zentext contributors.
 
-var chatterbox = (function () {
+var zentext = (function () {
   var results = new Array();
-  function chatterboxResult(text, type) {
+  var zentext = new Object();
+  
+  function zentextResult(text, type) {
     if (type != 'error' && type != 'success') {
       type = 'result';
     }
@@ -10,15 +12,14 @@ var chatterbox = (function () {
     results.push(text);
     return text;
   }
-  var chatterbox = new Object();
   
-  chatterbox.send = function (content, address, type, sendMethod) {
+  zentext.send = function (content, address, type, sendMethod) {
     results = new Array();
     if (address == '' || address == null || address == undefined) {
-      return chatterboxResult('Address not specified.', 'error');
+      return zentextResult('Address not specified.', 'error');
     }
     if (content == '' || content == null || content == undefined) {
-      return chatterboxResult('Nothing to send.', 'error');
+      return zentextResult('Nothing to send.', 'error');
     }
     if (type == '' || type == null || type == undefined) {
       type = this.checkType(address);
@@ -33,50 +34,50 @@ var chatterbox = (function () {
         this.makeCall(content, address);
       }
     }
-    chatterboxResult('The send function completed.', 'success');
-    chatterboxResult('Sent ' + sendMethod + ' message.', 'success');
+    zentextResult('The send function completed.', 'success');
+    zentextResult('Sent ' + sendMethod + ' message.', 'success');
   };
   
-  chatterbox.checkType = function (address) {
+  zentext.checkType = function (address) {
     // Some code to detect the type of message we want to send.  Will return 'mobile' if telephone number, 'email' if email.
-    return chatterboxResult('Please teach me how to check an address\'s type.', 'error');
+    return zentextResult('Please teach me how to check an address\'s type.', 'error');
   };
   
-  chatterbox.sendEmail = function (content, address) {
+  zentext.sendEmail = function (content, address) {
     if (address == '' || address == null || address == undefined) {
-      return chatterboxResult('Address not specified.', 'error');
+      return zentextResult('Address not specified.', 'error');
     }
     if (content == '' || content == null || content == undefined) {
-      return chatterboxResult('Nothing to send.', 'error');
+      return zentextResult('Nothing to send.', 'error');
     }
     // Some code to send email.
-    return chatterboxResult('Please teach me how to send email.', 'error');
+    return zentextResult('Please teach me how to send email.', 'error');
   };
   
-  chatterbox.sendText = function (content, address) {
+  zentext.sendText = function (content, address) {
     if (address == '' || address == null || address == undefined) {
-      return chatterboxResult('Address not specified.', 'error');
+      return zentextResult('Address not specified.', 'error');
     }
     if (content == '' || content == null || content == undefined) {
-      return chatterboxResult('Nothing to send.', 'error');
+      return zentextResult('Nothing to send.', 'error');
     }
     // Some code to send a text.
-    return chatterboxResult('Please teach me how to send texts.', 'error');
+    return zentextResult('Please teach me how to send texts.', 'error');
   };
   
-  chatterbox.makeCall = function (content, address) {
+  zentext.makeCall = function (content, address) {
     if (address == '' || address == null || address == undefined) {
-      return chatterboxResult('Address not specified.', 'error');
+      return zentextResult('Address not specified.', 'error');
     }
     if (content == '' || content == null || content == undefined) {
-      return chatterboxResult('Nothing to send.', 'error');
+      return zentextResult('Nothing to send.', 'error');
     }
     // Some code to make a call.
     results.push('error: Please teach me how to call people.');
-    return chatterboxResult('Please teach me how to call people.', 'error');
+    return zentextResult('Please teach me how to call people.', 'error');
   };
   
-  chatterbox.results = function(format) {
+  zentext.results = function(format) {
     var resultString = 'No results yet!';
     if (results == '' || results == null || results == undefined) {
       return resultString;
@@ -91,5 +92,5 @@ var chatterbox = (function () {
     return resultString;
   };
   
-  return chatterbox;
+  return zentext;
 })();
