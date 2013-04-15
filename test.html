@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chatterbox Test</title>
+    <title>Zentext Test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script type="text/javascript" src="chatterbox.js"></script>
+    <script type="text/javascript" src="zentext.js"></script>
     <style>
       #results {
         color: white;
@@ -34,13 +34,13 @@
     <script type="text/javascript">
       // This is a test script
       function sendTest() {
-        chatterbox.send(
+        zentext.send(
           document.getElementById('message-text').value,
           document.getElementById('message-address').value,          
           '',
           document.getElementById('message-type').value
         );
-        document.getElementById('results').innerHTML = chatterbox.results('html');
+        document.getElementById('results').innerHTML = zentext.results('html');
       }
     </script>
   </body>
