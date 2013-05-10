@@ -87,7 +87,7 @@ var zentext = (function () {
     } else if (format == 'array') {
       resultString = results;
     } else {
-      resultString = results.toString().replace(/,/g, '');
+      resultString = results.join("");
     }
     return resultString;
   };
