@@ -1,10 +1,18 @@
 # For more information on app.yaml, see the docs here: https://developers.google.com/appengine/docs/python/config/appconfig
 application: zentextapp
-version: 0-0-1-alpha
+version: 0-0-2-alpha
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
+- url: /test.html
+  static_files: test.html
+  upload: test.html
+
+- url: /zentext.js
+  static_files: zentext.js
+  upload: zentext.js
+
 - url: /.*
   script: main.app
