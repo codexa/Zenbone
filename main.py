@@ -8,7 +8,7 @@ def main():
 	keyfile.close();
 
 class EmailHandler(webapp2.RequestHandler):
-	def get(self):
+	def post(self):
 		message={}
 		to_address=[]
 		m=mandrill.Mandrill(key)
