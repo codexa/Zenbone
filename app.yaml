@@ -1,0 +1,10 @@
+# For more information on app.yaml, see the docs here: https://developers.google.com/appengine/docs/python/config/appconfig
+application: zentextapp
+version: 0-0-1-alpha
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: main.app
