@@ -26,9 +26,11 @@ You can find out what kind of address a user has entered by doing <code>foo = Ze
 
 ##Testing
 These are the required steps to test out the app:
+
 1. [download](http://www.python.org/download/) the latest python 2.7.x release
 2. download the [Google App Engine SDK](https://developers.google.com/appengine/downloads) for python for your operating system
 3. for the email functionality:
-	1. [sign up](http://mandrill.com/signup/) for manrill
-	2. create a new api key
-	3. paste the key into a file in the root directory of the repo called key.txt
+
+    1. [sign up](http://mandrill.com/signup/) for manrill
+    2. create a new api key
+    3. paste the key into a file in the root directory of the repo called key.txt
