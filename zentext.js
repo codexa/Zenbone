@@ -43,34 +43,43 @@ var zentext = (function () {
     return result('Please teach me how to check an address\'s type.', 'error');
   };
   
-  zentext.sendEmail = function (content, address) {
-    if (address == '' || address == null || address == undefined) {
-      return result('Address not specified.', 'error');
+  zentext.sendEmail = function (content, subject, address, sender) {
+    if !( address && typeof address === "string" ) {
+      return result('Address not specified or not in an acceptable format.', 'error');
     }
-    if (content == '' || content == null || content == undefined) {
-      return result('Nothing to send.', 'error');
+    if !( content && typeof content === "string" ) {
+      return result('Nothing to send or data is not in an acceptable format.', 'error');
+    }
+    if !( sender && typeof sender === "string" ) {
+      return result('Sender not specified or not in an acceptable format','error');
+    }
+    if ( subject === null || subject === undefined ) {
+      subject = "";
+    }
+    if !( typeof subject === "string" ) {
+      return result('Subject not in an acceptable format','error')
     }
     // Some code to send email.
     return result('Please teach me how to send email.', 'error');
   };
   
   zentext.sendText = function (content, address) {
-    if (address == '' || address == null || address == undefined) {
-      return result('Address not specified.', 'error');
+    if !( address && typeof address === "string" ) {
+      return result('Address not specified or not in an acceptable format.', 'error');
     }
-    if (content == '' || content == null || content == undefined) {
-      return result('Nothing to send.', 'error');
+    if !( content && typeof content === "string" ) {
+      return result('Nothing to send or data is not in an acceptable format.', 'error');
     }
     // Some code to send a text.
     return result('Please teach me how to send texts.', 'error');
   };
   
   zentext.makeCall = function (content, address) {
-    if (address == '' || address == null || address == undefined) {
-      return result('Address not specified.', 'error');
+    if !( address && typeof address === "string" ) {
+      return result('Address not specified or not in an acceptable format.', 'error');
     }
-    if (content == '' || content == null || content == undefined) {
-      return result('Nothing to send.', 'error');
+    if !( content && typeof content === "string" ) {
+      return result('Nothing to send or data is not in an acceptable format.', 'error');
     }
     // Some code to make a call.
     results.push('error: Please teach me how to call people.');
@@ -78,18 +87,18 @@ var zentext = (function () {
   };
   
   zentext.results = function(format) {
-    var resultString = 'No results yet!';
-    if (results == '' || results == null || results == undefined) {
-      return resultString;
+    var returnResult = 'No results yet!';
+    if ( results.length === 0 ) {
+      return returnResult;
     }
-    if (format == 'html') {
-      resultString = results.toString().replace(/{success}/g, '<div style="background: #50A251;">').replace(/{error}/g, '<div style="background: #a35151;">').replace(/{result}/g, '<div>').replace(/{end}/g, '</div>').replace(/,/g, '');
-    } else if (format == 'array') {
-      resultString = results;
+    if (format === 'html') {
+      returnResult = results.toString().replace(/{success}/g, '<div style="background: #50A251;">').replace(/{error}/g, '<div style="background: #a35151;">').replace(/{result}/g, '<div>').replace(/{end}/g, '</div>').replace(/,/g, '');
+    } else if (format === 'array') {
+      returnResult = results;
     } else {
-      resultString = results.join("");
+      returnResult = results.join("");
     }
-    return resultString;
+    return returnResult;
   };
   
   return zentext;
