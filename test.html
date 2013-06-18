@@ -23,6 +23,8 @@
   <body>
     <form action="javascript:sendTest()">
       <input type="text" id="message-address" placeholder="Address (email or phone)" />
+	  <br /><input type="text" id="message-subject" placeholder="subject (email)" />
+	  <br /><input type="text" id="message-from" placeholder="Your address (email)" />
       <br /><textarea id="message-text" placeholder="The message..."></textarea>
       <br /><select id="message-type">
         <option value="email">Email</option>
@@ -35,12 +37,22 @@
     <script type="text/javascript">
       // This is a test script
       function sendTest() {
-        zentext.send(
-          document.getElementById('message-text').value,
-          document.getElementById('message-address').value,          
-          '',
-          document.getElementById('message-type').value
-        );
+	    switch (document.getElementById('message-type').value) {
+		  case "email":
+            zentext.sendEmail(
+              document.getElementById('message-text').value,
+			  document.getElementById('message-subject').value,
+              document.getElementById('message-address').value,          
+              document.getElementById('message-from').value
+			);
+			break;
+		  case "text":
+		    zentext.sendText(
+			  document.getElementById('message-text').value,
+			  document.getElementById('message-address').value
+			);
+			break;
+		}
         document.getElementById('results').innerHTML = zentext.results('html');
       }
     </script>

@@ -17,31 +17,6 @@ var zentext = (function () {
     };
     results.push(newResult);
     return newResult;
-  }
-  
-  zentext.send = function (content, address, type, sendMethod) {
-    results = new Array();
-    if (address == '' || address == null || address == undefined) {
-      return result('Address not specified.', 'error');
-    }
-    if (content == '' || content == null || content == undefined) {
-      return result('Nothing to send.', 'error');
-    }
-    if (type == '' || type == null || type == undefined) {
-      type = this.checkType(address);
-    }
-    // Delegates based on type
-    if (type == 'email') {
-      this.sendEmail(content, address);
-    } else if (type == 'mobile') {
-      if (sendMethod == 'text') {
-        this.sendText(content, address);
-      } else {
-        this.makeCall(content, address);
-      }
-    }
-    result('The send function completed.', 'success');
-    result('Sent ' + sendMethod + ' message.', 'success');
   };
   
   zentext.checkType = function (address) {
@@ -80,7 +55,7 @@ var zentext = (function () {
     return result('Please teach me how to send texts.', 'error');
   };
   
-  zentext.makeCall = function (content, address) {
+  zentext.makeCall = function (address) {
     if (!( address && typeof address === "string" )) {
       return result('Address not specified or not in an acceptable format.', 'error');
     }
