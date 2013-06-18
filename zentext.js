@@ -5,12 +5,18 @@ var zentext = (function () {
   var zentext = new Object();
   
   function result(text, type) {
-    if (type != 'error' && type != 'success') {
+    if (typeof text !== "string") {
+      text = "";
+    }
+    if (type !== 'error' && type !== 'success') {
       type = 'result';
     }
-    text = ('{'+type+'}'+text+'{end}');
-    results.push(text);
-    return text;
+    newResult = {
+        type: type,
+        message: text
+    };
+    results.push(newResult);
+    return newResult;
   }
   
   zentext.send = function (content, address, type, sendMethod) {
@@ -44,19 +50,19 @@ var zentext = (function () {
   };
   
   zentext.sendEmail = function (content, subject, address, sender) {
-    if !( address && typeof address === "string" ) {
+    if (!( address && typeof address === "string" )) {
       return result('Address not specified or not in an acceptable format.', 'error');
     }
-    if !( content && typeof content === "string" ) {
+    if (!( content && typeof content === "string" )) {
       return result('Nothing to send or data is not in an acceptable format.', 'error');
     }
-    if !( sender && typeof sender === "string" ) {
+    if (!( sender && typeof sender === "string" )) {
       return result('Sender not specified or not in an acceptable format','error');
     }
     if ( subject === null || subject === undefined ) {
       subject = "";
     }
-    if !( typeof subject === "string" ) {
+    if (!( typeof subject === "string" )) {
       return result('Subject not in an acceptable format','error')
     }
     // Some code to send email.
@@ -64,10 +70,10 @@ var zentext = (function () {
   };
   
   zentext.sendText = function (content, address) {
-    if !( address && typeof address === "string" ) {
+    if (!( address && typeof address === "string" )) {
       return result('Address not specified or not in an acceptable format.', 'error');
     }
-    if !( content && typeof content === "string" ) {
+    if (!( content && typeof content === "string" )) {
       return result('Nothing to send or data is not in an acceptable format.', 'error');
     }
     // Some code to send a text.
@@ -75,28 +81,44 @@ var zentext = (function () {
   };
   
   zentext.makeCall = function (content, address) {
-    if !( address && typeof address === "string" ) {
+    if (!( address && typeof address === "string" )) {
       return result('Address not specified or not in an acceptable format.', 'error');
     }
-    if !( content && typeof content === "string" ) {
+    if (!( content && typeof content === "string" )) {
       return result('Nothing to send or data is not in an acceptable format.', 'error');
     }
     // Some code to make a call.
-    results.push('error: Please teach me how to call people.');
     return result('Please teach me how to call people.', 'error');
   };
-  
+
   zentext.results = function(format) {
-    var returnResult = 'No results yet!';
+    var returnResult = "";
     if ( results.length === 0 ) {
-      return returnResult;
+      result("no results yet","error");
     }
-    if (format === 'html') {
-      returnResult = results.toString().replace(/{success}/g, '<div style="background: #50A251;">').replace(/{error}/g, '<div style="background: #a35151;">').replace(/{result}/g, '<div>').replace(/{end}/g, '</div>').replace(/,/g, '');
-    } else if (format === 'array') {
-      returnResult = results;
-    } else {
-      returnResult = results.join("");
+    switch (format) {
+      case 'html':
+        for ( var i = 0; i < results.length; i++ ) {
+          switch (results[i].type) {
+            case "success":
+              returnResult += '<div class="zentext-success">';
+              break;
+            case "error":
+              returnResult += '<div class="zentext-error">';
+              break;
+            case "result":
+              returnResult += '<div class="zentext-result">';
+              break;
+          }
+          returnResult += results[i].message;
+          returnResult += '</div>';
+        }
+        break;
+      case 'json':
+          returnResult = results;
+        break;
+      default:
+        returnResult = result("invalid format","error")
     }
     return returnResult;
   };

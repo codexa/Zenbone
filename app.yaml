@@ -10,6 +10,10 @@ handlers:
   static_files: test.html
   upload: test.html
 
+- url: /test.css
+  static_files: test.css
+  upload: test.css
+
 - url: /zentext.js
   static_files: zentext.js
   upload: zentext.js
