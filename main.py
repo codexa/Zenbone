@@ -3,9 +3,9 @@ import mandrill
 
 def main():
 	global key
-	keyfile=open("key.txt","r");
-	key=keyfile.read();
-	keyfile.close();
+	keyfile=open("key.txt","r")
+	key=keyfile.read()
+	keyfile.close()
 
 class EmailHandler(webapp2.RequestHandler):
 	def post(self):
@@ -24,5 +24,4 @@ app = webapp2.WSGIApplication([
 	webapp2.Route(r"/email", handler=EmailHandler, name="email")
 ], debug=True)
 
-if __name__=="main":
-	main()
+main()
