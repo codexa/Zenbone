@@ -3,7 +3,7 @@
   <head>
     <title>Zentext Test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="test.css" />
+    <link rel="stylesheet" type="text/css" href="test.css" />
     <script type="text/javascript" src="zentext.js"></script>
     <style>
       #results {
@@ -23,8 +23,8 @@
   <body>
     <form action="javascript:sendTest()">
       <input type="text" id="message-address" placeholder="Address (email or phone)" />
-	  <br /><input type="text" id="message-subject" placeholder="subject (email)" />
-	  <br /><input type="text" id="message-from" placeholder="Your address (email)" />
+      <br /><input type="text" id="message-subject" placeholder="subject (email)" />
+      <br /><input type="text" id="message-from" placeholder="Your address (email)" />
       <br /><textarea id="message-text" placeholder="The message..."></textarea>
       <br /><select id="message-type">
         <option value="email">Email</option>
@@ -36,24 +36,30 @@
     <div id="results"></div>
     <script type="text/javascript">
       // This is a test script
+      function displayResult() {
+        document.getElementById('results').innerHTML = zentext.results('html');
+      }
       function sendTest() {
-	    switch (document.getElementById('message-type').value) {
-		  case "email":
+        switch (document.getElementById('message-type').value) {
+          case "email":
             zentext.sendEmail(
               document.getElementById('message-text').value,
-			  document.getElementById('message-subject').value,
+              document.getElementById('message-subject').value,
               document.getElementById('message-address').value,          
-              document.getElementById('message-from').value
-			);
-			break;
-		  case "text":
-		    zentext.sendText(
-			  document.getElementById('message-text').value,
-			  document.getElementById('message-address').value
-			);
-			break;
-		}
-        document.getElementById('results').innerHTML = zentext.results('html');
+              document.getElementById('message-from').value,
+              function(response, status) {
+                displayResult();
+              }
+            );
+            break;
+          case "text":
+            zentext.sendText(
+              document.getElementById('message-text').value,
+              document.getElementById('message-address').value
+            );
+            break;
+        }
+        displayResult();
       }
     </script>
   </body>

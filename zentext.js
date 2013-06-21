@@ -15,6 +15,9 @@ var zentext = (function () {
         type: type,
         message: text
     };
+    if ( results[0] && results[0].message === "no results yet" ) {
+      results.splice(0,1);
+    }
     results.push(newResult);
     return newResult;
   };
@@ -24,7 +27,7 @@ var zentext = (function () {
     return result('Please teach me how to check an address\'s type.', 'error');
   };
   
-  zentext.sendEmail = function (content, subject, address, sender) {
+  zentext.sendEmail = function (content, subject, address, sender, callback) {
     if (!( address && typeof address === "string" )) {
       return result('Address not specified or not in an acceptable format.', 'error');
     }
@@ -41,7 +44,38 @@ var zentext = (function () {
       return result('Subject not in an acceptable format','error')
     }
     // Some code to send email.
-    return result('Please teach me how to send email.', 'error');
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST","/email",true);
+    xhr.onload = function(e) {
+      if(callback) {
+        if( this.status === 200 ) {
+          var JSONResponse = JSON.parse(this.response);
+          switch(JSONResponse.status) {
+            case "sent":
+              callback(result("message has been sent successfully","success"));
+              break;
+            case "queued":
+              callback(result("message has been qued for sending","success"));
+              break;
+            case "invalid":
+              callback(result("the information provided was invalid","error"));
+              break;
+            case "rejected":
+              callback(result("the email was rejected {reason}"+JSONResponse.reject_reason+"{/reason}","error"));
+          }
+        }
+        else {
+          callback(result("server responded an error {code}"+this.status+"{/code}{message}"+this.response+"{/message}","error"))
+        }
+      }
+    }
+    var sendData = new FormData();
+    sendData.append("to",address);
+    sendData.append("from",sender);
+    sendData.append("subject",subject);
+    sendData.append("contents",content);
+    xhr.send(sendData);
+    return result("sending the email","success");
   };
   
   zentext.sendText = function (content, address) {
@@ -68,9 +102,6 @@ var zentext = (function () {
 
   zentext.results = function(format) {
     var returnResult = "";
-    if ( results.length === 0 ) {
-      result("no results yet","error");
-    }
     switch (format) {
       case 'html':
         for ( var i = 0; i < results.length; i++ ) {
@@ -97,6 +128,12 @@ var zentext = (function () {
     }
     return returnResult;
   };
+  
+  zentext.resetResults = function() {
+    results = new Array();
+    result("no results yet","error");
+  }
+  zentext.resetResults();
   
   return zentext;
 })();
