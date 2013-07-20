@@ -50,22 +50,15 @@ var zentext = (function () {
       if(callback) {
         if( this.status === 200 ) {
           var JSONResponse = JSON.parse(this.response);
-          switch(JSONResponse.status) {
-            case "sent":
-              callback(result("message has been sent successfully","success"));
-              break;
-            case "queued":
-              callback(result("message has been qued for sending","success"));
-              break;
-            case "invalid":
-              callback(result("the information provided was invalid","error"));
-              break;
-            case "rejected":
-              callback(result("the email was rejected {reason}"+JSONResponse.reject_reason+"{/reason}","error"));
+          if(JSONResponse.message === "Queued. Thank you.") {
+            callback(result("message has been sent successfully", "success"));
+          }
+          else {
+            callback(result(JSONResponse.message, "error"));
           }
         }
         else {
-          callback(result("server responded an error {code}"+this.status+"{/code}{message}"+this.response+"{/message}","error"))
+          callback(result("server responded an error {code}"+this.status+"{/code}{message}"+this.response+"{/message}","error"));
         }
       }
     }

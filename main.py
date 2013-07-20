@@ -1,12 +1,13 @@
 import webapp2
-import mandrill
+import requests
 import json
 import logging
+import cgi
 
 def main():
-	global key
+	global KEY
 	keyfile=open("key.txt","r")
-	key=keyfile.read()
+	KEY=keyfile.read()
 	keyfile.close()
 
 class EmailHandler(webapp2.RequestHandler):
@@ -26,14 +27,27 @@ class EmailHandler(webapp2.RequestHandler):
 	
 	def post(self):
 		message={}
-		to_address=[]
-		m=mandrill.Mandrill(key)
-		to_address.append({"email":str(self.request.get("to"))})
-		message["to"]=to_address
-		message["from_email"]=str(self.request.get("from"))
-		message["subject"]=str(self.request.get("subject"))
-		message["text"]=str(self.request.get("contents"))
-		self.response.write(json.dumps(m.messages.send(message)[0]))
+		message["from"] = self.request.get("from")
+		message["subject"] = self.request.get("subject")
+		message["text"] = self.request.get("contents")
+		
+		to_address = [];
+		to_address.append(self.request.get("to"))
+		message["to"] = to_address
+		
+		mail_response = requests.post(
+			"https://api.mailgun.net/v2/zentext.mailgun.org/messages",
+			auth = ("api", KEY),
+			data = message
+		)
+		try:
+			response_json = mail_response.json()
+		except ValueError:
+			response_json = {}
+			response_json["message"] = cgi.escape(mail_response.text)
+		response_json["responseCode"] = mail_response.status_code
+		
+		self.response.write(json.dumps(response_json))
 
 app = webapp2.WSGIApplication([
 	webapp2.Route(r"/email", handler=EmailHandler, name="email")
